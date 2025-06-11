@@ -3,7 +3,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Home\SignInRequest;
+use App\Utils\Enum\Role;
+use App\Utils\Enum\UserStatus;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -14,5 +18,38 @@ class HomeController extends Controller
 
     public function login(): View {
         return view('home.login');
+    }
+
+    public function sign_in(SignInRequest $request): RedirectResponse {
+        $validated = $request->validated();
+
+        try {
+            $isAuthenticated = Auth::attempt([
+                'username' => $this->sanitize($validated['username']),
+                'password' => $this->sanitize($validated['password']),
+                'status' => UserStatus::ACTIVE->name
+            ]);
+
+            if ($isAuthenticated) {
+                $loggedInUser = Auth::user();
+
+                if ($loggedInUser->role === Role::ADMIN->name) {
+                    return redirect()->intended('/admin');
+                } else if ($loggedInUser->role === Role::DISTRIBUTOR->name) {
+                    return redirect()->intended('/distributor');
+                } else {
+                    Auth::logout();
+                    return redirect('/login');
+                }
+            }
+
+            return redirect()->back()->with([
+                'message' => 'Invalid login credentials'
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with([
+                'message' => 'Something went wrong'
+            ]);
+        }
     }
 }
