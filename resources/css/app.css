@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,8 +6,8 @@
 @source '../**/*.js';
 
 :root {
-    --font-archivo: 'Archivo';
-    --font-holtwood: 'Holtwood One SC';
+    --font-archivo: "Archivo";
+    --font-holtwood: "Holtwood One SC";
     --fw-regular: 400;
     --fw-semibold: 500;
     --fw-bold: 700;
@@ -40,7 +40,7 @@
 }
 
 body {
-    font-family: 'Archivo', sans-serif;
+    font-family: "Archivo", sans-serif;
     color: var(--black-300);
     line-height: 1.5;
     font-weight: 400;
@@ -60,4 +60,26 @@ h6 {
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+.drawer--show {
+    width: 80%;
+}
+
+.drawer--hide {
+    width: 0%;
+}
+
+.backdrop--hide {
+    display: none;
+}
+
+.backdrop--show {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .drawer--show {
+        width: 300px;
+    }
 }
