@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Home\SignInRequest;
-use App\Utils\Enum\Role;
 use App\Utils\Enum\UserStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -12,15 +12,18 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index(): View {
+    public function index(): View
+    {
         return view('home.index');
     }
 
-    public function login(): View {
+    public function login(): View
+    {
         return view('home.login');
     }
 
-    public function sign_in(SignInRequest $request): RedirectResponse {
+    public function sign_in(SignInRequest $request): RedirectResponse
+    {
         $validated = $request->validated();
 
         try {
@@ -31,16 +34,7 @@ class HomeController extends Controller
             ]);
 
             if ($isAuthenticated) {
-                $loggedInUser = Auth::user();
-
-                if ($loggedInUser->role === Role::ADMIN->name) {
-                    return redirect()->intended('/admin');
-                } else if ($loggedInUser->role === Role::DISTRIBUTOR->name) {
-                    return redirect()->intended('/distributor');
-                } else {
-                    Auth::logout();
-                    return redirect('/login');
-                }
+                return redirect()->intended('/dashboard');
             }
 
             return redirect()->back()->with([
