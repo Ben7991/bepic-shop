@@ -10,4 +10,13 @@ Route::post('/login', [HomeController::class, 'sign_in']);
 
 Route::prefix("dashboard")->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/membership-packages', [DashboardController::class, 'membership_packages']);
+    Route::get('/incentives', [DashboardController::class, 'incentives']);
+    Route::get('/products', [DashboardController::class, 'products']);
+    Route::get('/order-history', [DashboardController::class, 'order_history']);
+    Route::get('/top-sales-chart', [DashboardController::class, 'top_sales_chart']);
+    Route::get('/wallet-transfer-history', [DashboardController::class, 'wallet_transfer_history']);
+    Route::get('/bonus-withdrawals', [DashboardController::class, 'bonus_withdrawals']);
+    Route::get('/distributors', [DashboardController::class, 'distributors']);
+    Route::get('/account-settings', [DashboardController::class, 'account_settings']);
 });
