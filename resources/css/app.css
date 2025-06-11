@@ -5,7 +5,59 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+:root {
+    --font-archivo: 'Archivo';
+    --font-holtwood: 'Holtwood One SC';
+    --fw-regular: 400;
+    --fw-semibold: 500;
+    --fw-bold: 700;
+
+    --sea-blue-100: #0267ff;
+    --sea-blue-400: #cce1ff;
+    --sea-blue-500: #67a4ff;
+    --sea-blue-800: #b3d1ff;
+    --sea-blue-900: #0252cc;
+
+    --error-100: #ff0000;
+    --error-500: #ff6666;
+    --error-900: #cc0000;
+
+    --success-100: #00e600;
+    --success-700: #99f599;
+
+    --gray-100: #fafafb;
+    --gray-300: #d1d5dc;
+    --gray-700: #a6a6ab;
+    --gray-800: #bcbcc0;
+    --gray-900: #d2d3d5;
+    --gray-1000: #e9e9ea;
+
+    --black: #000;
+    --black-200: #1a1a2a;
+    --black-300: #58585c;
+
+    --white: #fff;
+}
+
+body {
+    font-family: 'Archivo', sans-serif;
+    color: var(--black-300);
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--black-200);
+    font-weight: 600;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
