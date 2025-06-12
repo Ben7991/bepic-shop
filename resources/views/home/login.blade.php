@@ -7,8 +7,10 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bepic Shopping</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -31,7 +33,7 @@
                 </div>
                 <div class="mb-5">
                     <label for="password" class="inline-block mb-1">Password</label>
-                    <input type="text" name="password" id="password"
+                    <input type="password" name="password" id="password"
                         class="flex items-center px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)]">
                     @error('password')
                         <p class="text-[var(--error-100)]">{{ $message }}</p>
@@ -48,6 +50,10 @@
                 Go back to the <a href="/" class="text-[var(--sea-blue-100)] hover:underline">home page</a>
             </p>
         </section>
+
+        @if (session('message'))
+            <x-molecules.alert message="{{ session()->get('message') }}" variant="error" />
+        @endif
     </main>
 </body>
 
