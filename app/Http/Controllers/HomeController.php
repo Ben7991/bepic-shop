@@ -27,14 +27,15 @@ class HomeController extends Controller
         $validated = $request->validated();
 
         try {
-            $isAuthenticated = Auth::attempt([
+            $credentials = [
                 'username' => $this->sanitize($validated['username']),
                 'password' => $this->sanitize($validated['password']),
                 'status' => UserStatus::ACTIVE->name
-            ]);
+            ];
 
-            if ($isAuthenticated) {
-                return redirect()->intended('/dashboard');
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard');
             }
 
             return redirect()->back()->with([
