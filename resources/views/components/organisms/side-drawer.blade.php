@@ -1,3 +1,5 @@
+@props(['title'])
+
 <x-atoms.backdrop />
 <aside
     class="bg-[var(--gray-1000)] drawer--hide lg:w-[300px!important] transition-[width] h-full
