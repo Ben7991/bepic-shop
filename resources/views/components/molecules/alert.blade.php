@@ -17,16 +17,18 @@
 </div>
 
 <script>
-    const alert = document.getElementById('alert');
-    const alertBtnClose = document.getElementById('alert-btn-close');
+    window.onload = function() {
+        const alert = document.getElementById('alert');
+        const alertBtnClose = document.getElementById('alert-btn-close');
 
-    if (alert && alertBtnClose) {
-        alertBtnClose.addEventListener('click', () => {
-            alert.remove();
-        });
+        if (alert && alertBtnClose) {
+            alertBtnClose.addEventListener('click', () => {
+                alert.remove();
+            });
 
-        setTimeout(() => {
-            alert.remove();
-        }, 3000);
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
     }
 </script>
