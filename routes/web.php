@@ -15,7 +15,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
 
-    Route::resource('membership-packages', MembershipPackageController::class);
+    Route::get('membership-packages', [MembershipPackageController::class, 'index']);
+    Route::get('membership-packages/create', [MembershipPackageController::class, 'create'])->middleware('user.admin');
+    Route::post('membership-packages', [MembershipPackageController::class, 'store'])->middleware('user.admin');
+    Route::get('membership-packages/{id}/edit', [MembershipPackageController::class, 'edit'])->middleware('user.admin');
+    Route::put('membership-packages/{id}', [MembershipPackageController::class, 'update'])->middleware('user.admin');
 
     Route::get('/incentives', [DashboardController::class, 'incentives']);
     Route::get('/products', [DashboardController::class, 'products']);
