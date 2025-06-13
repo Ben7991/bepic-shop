@@ -83,3 +83,15 @@ h6 {
         width: 300px;
     }
 }
+
+th {
+    color: #000;
+    font-weight: 500 !important;
+}
+
+table.dataTable td.dt-type-date,
+table.dataTable th.dt-type-date,
+table.dataTable th.dt-type-numeric,
+table.dataTable td.dt-type-numeric {
+    text-align: left !important;
+}
