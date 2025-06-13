@@ -20,7 +20,9 @@
         <x-organisms.side-drawer :title="$title" />
         <section class="w-full lg:basis-[calc(100%-300px)] bg-white">
             <x-organisms.page-header />
-            {{ $slot }}
+            <x-atoms.content-wrapper>
+                {{ $slot }}
+            </x-atoms.content-wrapper>
         </section>
     </main>
 
