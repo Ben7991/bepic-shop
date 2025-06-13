@@ -14,11 +14,6 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function membership_packages(): View
-    {
-        return view('dashboard.membership-packages');
-    }
-
     public function incentives(): View
     {
         return view('dashboard.incentives');
