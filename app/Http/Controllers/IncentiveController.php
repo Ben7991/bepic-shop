@@ -41,4 +41,38 @@ class IncentiveController extends Controller
             ]);
         }
     }
+
+    public function edit(int $id)
+    {
+        try {
+            $incentive = Incentive::findOrFail($id);
+            return view('dashboard.incentive.edit', [
+                'incentive' => $incentive
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back();
+        }
+    }
+
+    public function update(IncentiveRequest $request, $id)
+    {
+        $validated = $request->validated();
+
+        try {
+            $incentive = Incentive::findOrFail($id);
+            $incentive->point = $validated['point'];
+            $incentive->award = $validated['award'];
+            $incentive->save();
+
+            return redirect('/dashboard/incentives')->with([
+                'message' => 'Incentive updated successfully',
+                'variant' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with([
+                'message' => 'Something went wrong',
+                'variant' => 'error'
+            ]);
+        }
+    }
 }

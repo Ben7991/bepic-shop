@@ -17,8 +17,9 @@
     <div
         class="bg-white py-3 px-4 md:py-3 rounded-md border border-gray-300 w-full md:w-[450px] md:p-4 xl:w-[500px] xl:p-5">
         <h4 class="font-bold text-[1.2em] mb-4">Add incentive</h4>
-        <form action="/dashboard/incentives" method="POST">
+        <form action="/dashboard/incentives/{{ $incentive->id }}" method="POST">
             @csrf
+            @method('PUT')
 
             <div class="mb-3">
                 <label for="point" class="mb-1 inline-block">Point</label>
@@ -30,7 +31,7 @@
             </div>
             <div class="mb-3">
                 <label for="award" class="mb-1 inline-block">Award</label>
-                <input type="text" name="award" id="award"
+                <input type="text" name="award" id="award" value="{{ $incentive->award }}"
                     class="flex items-center px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
                 @error('award')
                     <small class="text-red-700">{{ $message }}</small>
@@ -38,8 +39,8 @@
             </div>
 
             <button
-                class="cursor-pointer py-2 bg-[var(--sea-blue-100)] text-white hover:bg-[var(--sea-blue-900)] active:bg-[var(--sea-blue-500)] rounded-lg w-[100px]">
-                <i class="bi bi-save"></i> Save
+                class="cursor-pointer py-2 bg-[var(--sea-blue-100)] text-white hover:bg-[var(--sea-blue-900)] active:bg-[var(--sea-blue-500)] rounded-lg w-[150px]">
+                <i class="bi bi-save"></i> Save changes
             </button>
         </form>
     </div>
