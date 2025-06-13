@@ -4,7 +4,7 @@
     <h1 class="text-2xl font-bold mb-4">Incentives</h1>
 
     <div class="flex gap-2 flex-col md:flex-row md:items-center md:justify-between mb-4 xl:mb-7">
-        <a href="/dashboard/membership-packages" class="flex items-center gap-3 hover:underline text-blue-700 mb-4">
+        <a href="/dashboard/incentives" class="flex items-center gap-3 hover:underline text-blue-700 mb-4">
             <i class="bi bi-arrow-left"></i>
             <span>Go back</span>
         </a>
@@ -17,7 +17,7 @@
     <div
         class="bg-white py-3 px-4 md:py-3 rounded-md border border-gray-300 w-full md:w-[450px] md:p-4 xl:w-[500px] xl:p-5">
         <h4 class="font-bold text-[1.2em] mb-4">Add incentive</h4>
-        <form action="/dashboard/membership-packages" method="POST">
+        <form action="/dashboard/incentives" method="POST">
             @csrf
 
             <div class="mb-3">
