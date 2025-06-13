@@ -14,16 +14,6 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function incentives(): View
-    {
-        return view('dashboard.incentives');
-    }
-
-    public function products(): View
-    {
-        return view('dashboard.products');
-    }
-
     public function order_history(): View
     {
         return view('dashboard.order-history');
