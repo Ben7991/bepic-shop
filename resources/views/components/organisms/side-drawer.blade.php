@@ -6,7 +6,7 @@
             fixed top-0 left-0 overflow-y-auto py-8 xl:py-10 lg:static lg:h-auto"
     id="side-drawer">
     <div class="mb-5 flex items-center justify-center xl:mb-10">
-        <x-molecules.user-profile initials="MD" role="Admin" name="James Smith" />
+        <x-molecules.user-profile />
     </div>
     <div class="flex flex-col gap-3 w-4/5 mx-auto">
         <a href="/dashboard"
