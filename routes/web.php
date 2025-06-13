@@ -22,9 +22,9 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('membership-packages/{id}/edit', [MembershipPackageController::class, 'edit'])->middleware('user.admin');
     Route::put('membership-packages/{id}', [MembershipPackageController::class, 'update'])->middleware('user.admin');
 
-    Route::get('/incentives', [IncentiveController::class, 'index']);
-    Route::get('/incentives/create', [IncentiveController::class, 'create'])->middleware('user.admin');
-
+    Route::get('incentives', [IncentiveController::class, 'index']);
+    Route::get('incentives/create', [IncentiveController::class, 'create'])->middleware('user.admin');
+    Route::post('incentives', [IncentiveController::class, 'store'])->middleware('user.admin');
 
     Route::get('/products', [DashboardController::class, 'products']);
     Route::get('/order-history', [DashboardController::class, 'order_history']);
