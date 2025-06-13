@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncentiveController;
 use App\Http\Controllers\MembershipPackageController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,10 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('membership-packages/{id}/edit', [MembershipPackageController::class, 'edit'])->middleware('user.admin');
     Route::put('membership-packages/{id}', [MembershipPackageController::class, 'update'])->middleware('user.admin');
 
-    Route::get('/incentives', [DashboardController::class, 'incentives']);
+    Route::get('/incentives', [IncentiveController::class, 'index']);
+    Route::get('/incentives/create', [IncentiveController::class, 'create'])->middleware('user.admin');
+
+
     Route::get('/products', [DashboardController::class, 'products']);
     Route::get('/order-history', [DashboardController::class, 'order_history']);
     Route::get('/top-sales-chart', [DashboardController::class, 'top_sales_chart']);
