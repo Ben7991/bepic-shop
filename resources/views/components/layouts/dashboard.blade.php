@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <main class="lg:flex w-full h-screen overflow-hidden">
+    <main class="lg:flex w-full h-screen lg:overflow-hidden">
         <x-organisms.side-drawer :title="$title" />
-        <section class="w-full lg:basis-[calc(100%-300px)] bg-white">
+        <section class="w-full lg:basis-[calc(100%-300px)] bg-white lg:overflow-auto">
             <x-organisms.page-header />
             <x-atoms.content-wrapper class="lg:mt-5">
                 {{ $slot }}
