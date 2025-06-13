@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncentiveController;
 use App\Http\Controllers\MembershipPackageController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -28,7 +29,12 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('incentives/{id}/edit', [IncentiveController::class, 'edit'])->middleware('user.admin');
     Route::put('incentives/{id}', [IncentiveController::class, 'update'])->middleware('user.admin');
 
-    Route::get('/products', [DashboardController::class, 'products']);
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('products/create', [ProductController::class, 'create'])->middleware('user.admin');
+    Route::post('products', [ProductController::class, 'store'])->middleware('user.admin');
+    Route::get('products/{id}/edit', [ProductController::class, 'edit'])->middleware('user.admin');
+    Route::put('products/{id}', [ProductController::class, 'update'])->middleware('user.admin');
+
     Route::get('/order-history', [DashboardController::class, 'order_history']);
     Route::get('/top-sales-chart', [DashboardController::class, 'top_sales_chart']);
     Route::get('/wallet-transfer-history', [DashboardController::class, 'wallet_transfer_history']);
