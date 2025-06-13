@@ -25,15 +25,10 @@ class HomeController extends Controller
     public function sign_in(SignInRequest $request): RedirectResponse
     {
         $validated = $request->validated();
+        $validated['status'] = UserStatus::ACTIVE->name;
 
         try {
-            $credentials = [
-                'username' => $this->sanitize($validated['username']),
-                'password' => $this->sanitize($validated['password']),
-                'status' => UserStatus::ACTIVE->name
-            ];
-
-            if (Auth::attempt($credentials)) {
+            if (Auth::attempt($validated)) {
                 $request->session()->regenerate();
                 return redirect()->intended('dashboard');
             }
