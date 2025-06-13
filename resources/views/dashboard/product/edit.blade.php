@@ -47,7 +47,7 @@
             </div>
 
             <button
-                class="cursor-nameer py-2 bg-[var(--sea-blue-100)] text-white hover:bg-[var(--sea-blue-900)] active:bg-[var(--sea-blue-500)] rounded-lg w-[150px]">
+                class="cursor-pointer py-2 bg-[var(--sea-blue-100)] text-white hover:bg-[var(--sea-blue-900)] active:bg-[var(--sea-blue-500)] rounded-lg w-[150px]">
                 <i class="bi bi-save"></i> Save changes
             </button>
         </form>
