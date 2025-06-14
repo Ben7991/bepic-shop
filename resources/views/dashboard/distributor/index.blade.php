@@ -3,9 +3,14 @@
 
     <div class="flex gap-2 flex-col md:flex-row md:items-center md:justify-between mb-4 xl:mb-7">
         <h1 class="text-2xl font-bold">Distributors</h1>
-        <a href="/dashboard/distributors/create" class="hover:underline text-blue-700">
-            Add Distributor <i class="bi bi-arrow-right"></i>
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="/dashboard/distributors/create" class="underline text-blue-700">
+                Add Distributor
+            </a>
+            <a href="/dashboard/distributors/wallet-transfers" class="underline text-blue-700">
+                View Wallet Transfers
+            </a>
+        </div>
     </div>
 
     @if (session('message'))

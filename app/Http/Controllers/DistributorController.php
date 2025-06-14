@@ -152,10 +152,18 @@ class DistributorController extends Controller
         ]);
 
         try {
+            $amount = (float)$this->sanitize($validated['amount']);
+
             $user = User::findOrFail($id);
             $distributor = $user->distributor;
-            $distributor->wallet += (float)$this->sanitize($validated['amount']);
+            $distributor->wallet += $amount;
             $distributor->save();
+
+            Transaction::create([
+                'distributor_id' => $distributor->id,
+                'transaction_type' => TransactionType::DEPOSIT->name,
+                'amount' => $amount
+            ]);
 
             return redirect()->back()->with([
                 'message' => 'Transferred wallet successfully',
@@ -188,5 +196,12 @@ class DistributorController extends Controller
                 'pass' => 'yes'
             ]);
         }
+    }
+
+    public function wallet_transfers(): View
+    {
+        return view('dashboard.distributor.wallet-transfer', [
+            'transactions' => Transaction::where('transaction_type', TransactionType::DEPOSIT->name)->get()
+        ]);
     }
 }

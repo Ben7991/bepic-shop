@@ -28,6 +28,11 @@
             <i class="bi bi-capsule text-xl"></i>
             Products
         </a>
+        <a href="/dashboard/order-history"
+            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Order History' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+            <i class="bi bi-clock-history text-xl"></i>
+            Order History
+        </a>
         @if (Auth::user()->role === 'DISTRIBUTOR')
             <a href="/dashboard/my-tree"
                 class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'My Tree' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
@@ -40,20 +45,10 @@
                 Request Withdrawal
             </a>
         @endif
-        <a href="/dashboard/order-history"
-            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Order History' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
-            <i class="bi bi-clock-history text-xl"></i>
-            Order History
-        </a>
         <a href="/dashboard/top-sales-chart"
             class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Top Sales Chart' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
             <i class="bi bi-graph-up-arrow text-xl"></i>
             Top Sales Chart
-        </a>
-        <a href="/dashboard/wallet-transfer-history"
-            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Wallet Transfer History' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
-            <i class="bi bi-wallet text-xl"></i>
-            Wallet Transfer History
         </a>
         @if (Auth::user()->role === 'ADMIN')
             <a href="/dashboard/bonus-withdrawals"
