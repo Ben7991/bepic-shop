@@ -24,11 +24,13 @@ class AuthController extends Controller
             }
 
             return redirect()->back()->with([
-                'message' => 'Invalid login credentials'
+                'message' => 'Invalid login credentials',
+                'variant' => 'error'
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with([
-                'message' => 'Something went wrong'
+                'message' => 'Something went wrong',
+                'variant' => 'error'
             ]);
         }
     }
