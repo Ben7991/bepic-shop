@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BonusController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncentiveController;
 use App\Http\Controllers\MembershipPackageController;
@@ -44,7 +45,8 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('order-history', [DashboardController::class, 'order_history']);
     Route::get('top-sales-chart', [DashboardController::class, 'top_sales_chart']);
     Route::get('wallet-transfer-history', [DashboardController::class, 'wallet_transfer_history'])->middleware('user.admin');
-    Route::get('distributors', [DashboardController::class, 'distributors'])->middleware('user.admin');
+
+    Route::get('distributors', [DistributorController::class, 'index'])->middleware('user.admin');
 
     Route::get('my-tree', [MyTreeController::class, 'index'])->middleware('user.distributor');
 
