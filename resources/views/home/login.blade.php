@@ -51,8 +51,8 @@
             </p>
         </section>
 
-        @if (session('message'))
-            <x-molecules.alert message="{{ session()->get('message') }}" variant="error" />
+        @if (session('message') && session('variant'))
+            <x-molecules.alert message="{{ session()->get('message') }}" variant="{{ session()->get('variant') }}" />
         @endif
     </main>
 </body>
