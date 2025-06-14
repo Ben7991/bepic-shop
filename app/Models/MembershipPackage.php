@@ -11,4 +11,15 @@ class MembershipPackage extends Model
         'product_quantity',
         'price',
     ];
+
+    public static function getMembershipPackageById(int $id): MembershipPackage
+    {
+        $membershipPackage = MembershipPackage::find($id);
+
+        if ($membershipPackage === null) {
+            throw new \Exception('Membership package not recognized');
+        }
+
+        return $membershipPackage;
+    }
 }
