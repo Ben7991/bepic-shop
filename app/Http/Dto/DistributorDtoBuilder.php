@@ -11,7 +11,7 @@ class DistributorDtoBuilder
 
     public string $name;
     public string $username;
-    public int $uplineId;
+    public string $uplineId;
     public Leg $leg;
     public int $membershipPackageId;
     public string $phone;
