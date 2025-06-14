@@ -17,6 +17,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
 
+    Route::get('/account-settings', [DashboardController::class, 'account_settings']);
+    Route::post('/account-settings/personal', [DashboardController::class, 'change_personal']);
+    Route::post('/account-settings/pass-code', [DashboardController::class, 'change_password']);
+
     Route::get('membership-packages', [MembershipPackageController::class, 'index']);
     Route::get('membership-packages/create', [MembershipPackageController::class, 'create'])->middleware('user.admin');
     Route::post('membership-packages', [MembershipPackageController::class, 'store'])->middleware('user.admin');
@@ -40,5 +44,4 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('/wallet-transfer-history', [DashboardController::class, 'wallet_transfer_history']);
     Route::get('/bonus-withdrawals', [DashboardController::class, 'bonus_withdrawals']);
     Route::get('/distributors', [DashboardController::class, 'distributors']);
-    Route::get('/account-settings', [DashboardController::class, 'account_settings']);
 });
