@@ -5,6 +5,10 @@
         <h1 class="text-2xl font-bold">Account Settings</h1>
     </div>
 
+    @if (session('message') && session('variant'))
+        <x-molecules.alert message="{{ session()->get('message') }}" variant="{{ session()->get('variant') }}" />
+    @endif
+
     <div class="flex gap-4 items-center my-5 lg:mb-10">
         <div
             class="w-[114px] h-[114px] rounded-full border border-[var(--gray-700)] flex items-center justify-center text-2xl">
@@ -37,12 +41,13 @@
         <div
             class="bg-white py-3 px-4 md:py-3 rounded-md border border-gray-300 w-full md:w-[350px] md:p-4 xl:w-[500px] xl:p-5">
             <h4 class="font-bold text-[1.2em] mb-4">Personal Information</h4>
-            <form>
+            <form method="POST" action="/dashboard/account-settings/personal">
+                @csrf
                 <div class="mb-4">
-                    <label for="username" class="inline-block mb-1">Username</label>
-                    <input type="text" name="username" id="username"
+                    <label for="name" class="inline-block mb-1">Name</label>
+                    <input type="text" name="name" id="name"
                         class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]"">
-                    @error('username')
+                    @error('name')
                         <p class="text-[var(--error-100)]">{{ $message }}</p>
                     @enderror
                 </div>
@@ -56,7 +61,7 @@
         <div
             class="bg-white py-3 px-4 md:py-3 rounded-md border border-gray-300 w-full md:w-[350px] md:p-4 xl:w-[500px] xl:p-5">
             <h4 class="font-bold text-[1.2em] mb-4">Change Password</h4>
-            <form>
+            <form method="POST" action="/dashboard/account-settings/pass-code">
                 @csrf
 
                 <div class="mb-4">
