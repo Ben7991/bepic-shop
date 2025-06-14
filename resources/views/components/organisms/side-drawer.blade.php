@@ -28,6 +28,18 @@
             <i class="bi bi-capsule text-xl"></i>
             Products
         </a>
+        @if (Auth::user()->role === 'DISTRIBUTOR')
+            <a href="/dashboard/my-tree"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'My Tree' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-diagram-2 text-xl"></i>
+                My Tree
+            </a>
+            <a href="/dashboard/request-withdrawal"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Request Withdrawal' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-question-lg text-xl"></i>
+                Request Withdrawal
+            </a>
+        @endif
         <a href="/dashboard/order-history"
             class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Order History' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
             <i class="bi bi-clock-history text-xl"></i>
@@ -43,16 +55,18 @@
             <i class="bi bi-wallet text-xl"></i>
             Wallet Transfer History
         </a>
-        <a href="/dashboard/bonus-withdrawals"
-            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Bonus Withdrawals' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
-            <i class="bi bi-cash-stack text-xl"></i>
-            Bonus Withdrawals
-        </a>
-        <a href="/dashboard/distributors"
-            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Distributors' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
-            <i class="bi bi-people text-xl"></i>
-            Distributors
-        </a>
+        @if (Auth::user()->role === 'ADMIN')
+            <a href="/dashboard/bonus-withdrawals"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Bonus Withdrawals' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-cash-stack text-xl"></i>
+                Bonus Withdrawals
+            </a>
+            <a href="/dashboard/distributors"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Distributors' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-people text-xl"></i>
+                Distributors
+            </a>
+        @endif
         <a href="/dashboard/account-settings"
             class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Account Settings' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
             <i class="bi bi-gear text-xl"></i>
