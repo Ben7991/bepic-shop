@@ -2,6 +2,7 @@
 
 namespace App\Http\Dto;
 
+use App\Models\User;
 use App\Utils\Enum\Leg;
 use App\Utils\Trait\DataSanitizer;
 
@@ -30,13 +31,19 @@ class DistributorDtoBuilder
 
     public function setUsername(string $username): self
     {
+        $existingUser = User::where('username', $username)->first();
+
+        if ($existingUser) {
+            throw new \Exception('Username already exist');
+        }
+
         $this->username = $this->sanitize($username);
         return $this;
     }
 
     public function setUplineId(string $uplineId): self
     {
-        $this->uplineId = (int)$this->sanitize($uplineId);
+        $this->uplineId = $this->sanitize($uplineId);
         return $this;
     }
 
