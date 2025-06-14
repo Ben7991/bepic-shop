@@ -1,42 +1,38 @@
 <x-layouts.dashboard>
     <x-slot name="title">My Tree</x-slot>
 
-    <div class="flex gap-2 flex-col md:flex-row md:items-center md:justify-between mb-4 xl:mb-7">
-        <h1 class="text-2xl font-bold">My Tree</h1>
-        <a href="/dashboard/my-tree/create" class="hover:underline text-blue-700">
-            Add Distributor <i class="bi bi-arrow-right"></i>
-        </a>
+    <a href="/dashboard/my-tree" class="flex items-center gap-3 hover:underline text-blue-700 mb-4">
+        <i class="bi bi-arrow-left"></i>
+        <span>Go back</span>
+    </a>
+
+    <div class="mb-4 xl:mb-7">
+        <h1 class="text-2xl font-bold">{{ $user->name }}'s Tree</h1>
     </div>
 
     <div class="flex flex-wrap gap-3 md:gap-4 mb-4 xl:mb-7">
         <div class="bg-green-100 rounded-md flex justify-between basis-[48%] px-4 md:basis-1/4 py-3 xl:p-5 xl:basis-1/5">
             <div class="text-left">
-                <p class="mb-1">Left Leg Points</p>
-                <h4 class="font-semibold text-xl">{{ $leftLeg }}</h4>
+                <p class="mb-1">Left Leg</p>
+                <h4 class="font-semibold text-xl">{{ $left_leg }}</h4>
             </div>
             <i class="bi bi-arrow-return-left text-3xl"></i>
         </div>
         <div class="bg-blue-100 rounded-md flex justify-between basis-[48%] px-4 py-3 md:basis-1/4 xl:p-5 xl:basis-1/5">
             <div class="text-left">
-                <p class="mb-1">Right Leg Points</p>
-                <h4 class="font-semibold text-xl">{{ $rightLeg }}</h4>
+                <p class="mb-1">Right Leg</p>
+                <h4 class="font-semibold text-xl">{{ $right_leg }}</h4>
             </div>
             <i class="bi bi-arrow-return-right text-3xl"></i>
         </div>
         <div class="bg-red-100 rounded-md flex justify-between basis-[48%] px-4 py-3 md:basis-1/4 xl:p-5 xl:basis-1/5">
             <div class="text-left">
-                <p class="mb-1">Total Matching Points</p>
-                <h4 class="font-semibold text-xl">{{ $totalMatchingPoint }}</h4>
+                <p class="mb-1">Total Matching</p>
+                <h4 class="font-semibold text-xl">{{ $totalMatching }}</h4>
             </div>
             <i class="bi bi-diagram-2 text-3xl"></i>
         </div>
     </div>
-
-    @if (session('message'))
-        <div class="bg-green-100 text-green-700 p-3 rounded-md mb-4">
-            {{ session()->get('message') }}
-        </div>
-    @endif
 
     @php
         function swap($distributors)
@@ -56,9 +52,9 @@
     @endphp
 
     <div
-        class="border rounded-full bg-white flex items-center justify-center text-[1.2em] mx-auto relative w-16 h-16 text-2xl">
+        class="w-10 h-10 border rounded-full bg-white flex items-center justify-center text-[1.2em] mx-auto relative xl:w-16 xl:h-16 xl:text-2xl">
         <i class="bi bi-person"></i>
-        <div class="absolute w-[2px] h-5 bg-gray-500 left-1/2 -translate-x-1/2 top-16"></div>
+        <div class="absolute w-[2px] h-5 bg-gray-500 top-10 left-1/2 -translate-x-1/2 xl:top-16"></div>
     </div>
     @if (count($distributors) > 0)
         <div class="mx-auto w-[356px] flex mt-5 justify-between md:w-[500px] relative">
@@ -131,33 +127,33 @@
         </div>
     @endif
 
-    <div class="fixed w-full h-full top-0 left-0 bg-black/50 z-10 hidden" id="modal-back-drop">
-        <div class="fixed z-20 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white w-[90%] p-4 rounded md:w-1/2 xl:w-[500px] xl:p-6 hidden"
-            id="my-tree-modal">
-            <div class="mb-4 xl:mb-7 flex items-center justify-between">
-                <h1 class="text-2xl font-bold" id="dist-name">...</h1>
-                <button class="text-2xl hover:text-red-700 cursor-pointer" onclick="closeModal()">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-            <div class="space-y-4 md:space-y-0 md:flex gap-3 mb-4">
-                <div class="border p-3 rounded flex-grow">
-                    <p class="font-semibold">ID</p>
-                    <h5 class="font-bold" id="dist-id">...</h5>
-                </div>
-                <div class="border p-3 rounded flex-grow">
-                    <p class="font-semibold">Left Leg</p>
-                    <h5 class="font-bold" id="dist-left-leg">...</h5>
-                </div>
-                <div class="border p-3 rounded flex-grow">
-                    <p class="font-semibold">Right Leg</p>
-                    <h5 class="font-bold" id="dist-right-leg">...</h5>
-                </div>
-            </div>
-            <a href="#" class="text-blue-700 underline" id="dist-link">
-                View my tree <i class="bi bi-arrow-right"></i>
-            </a>
+
+    <div class="fixed w-full h-full top-0 left-0 bg-black/50 z-10 hidden" id="modal-back-drop"></div>
+    <div class="fixed z-20 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white w-[90%] p-4 rounded md:w-1/2 xl:w-[500px] xl:p-6 hidden"
+        id="my-tree-modal">
+        <div class="mb-4 xl:mb-7 flex items-center justify-between">
+            <h1 class="text-2xl font-bold" id="dist-name">...</h1>
+            <button class="text-2xl hover:text-red-700" onclick="closeModal()">
+                <i class="bi bi-x-lg"></i>
+            </button>
         </div>
+        <div class="space-y-4 md:space-y-0 md:flex gap-3 mb-4">
+            <div class="border p-3 rounded flex-grow">
+                <p class="font-semibold">ID</p>
+                <h5 class="font-bold" id="dist-id">...</h5>
+            </div>
+            <div class="border p-3 rounded flex-grow">
+                <p class="font-semibold">Left Leg</p>
+                <h5 class="font-bold" id="dist-left-leg">...</h5>
+            </div>
+            <div class="border p-3 rounded flex-grow">
+                <p class="font-semibold">Right Leg</p>
+                <h5 class="font-bold" id="dist-right-leg">...</h5>
+            </div>
+        </div>
+        <a href="#" class="text-blue-700 underline" id="dist-link">
+            View my tree <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
 
 
@@ -174,7 +170,7 @@
 
 
             async function showDownlineDetails(id) {
-                const response = await fetch(`/dashboard/users/${id}`);
+                const response = await fetch(`/users/${id}`);
                 const result = await response.json();
 
                 showModal();
@@ -183,7 +179,7 @@
                 distLeft.textContent = result.data.left_leg;
                 distRight.textContent = result.data.right_leg;
                 distName.textContent = result.data.name;
-                distLink.href = `/dashboard/my-tree/${result.data.id}`
+                distLink.href = `/distributor/my-tree/${result.data.id}`
             }
 
             function showModal() {

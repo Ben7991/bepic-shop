@@ -14,13 +14,26 @@
         class="bg-white py-3 px-4 md:py-3 rounded-md border border-gray-300 w-full md:w-[450px] md:p-4 xl:w-[500px] xl:p-5">
         <h4 class="font-bold text-[1.2em] mb-4">Add distributor</h4>
 
+        <ol class="list-decimal ms-4 mb-5">
+            <li>For Username, they are unique per user.</li>
+            <li>For Phone, please use your momo to ensure withdrawals can be made much easier</li>
+            <li>
+                You can register as many as you want but only two is allowed directly under you or any other distributor
+                in your tree.
+            </li>
+            <li>
+                When entering the "UPLINE ID" and you are the upline, provide your ID else get an already existing
+                user's ID to do the registration
+            </li>
+        </ol>
+
         @if (session('message'))
             <div class="bg-red-100 text-red-700 p-3 rounded-md mb-4">
                 {{ session()->get('message') }}
             </div>
         @endif
 
-        <form action="/dashboard/distributors" method="POST">
+        <form action="/dashboard/my-tree" method="POST">
             @csrf
 
             <div class="mb-3">

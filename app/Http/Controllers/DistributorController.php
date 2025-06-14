@@ -76,8 +76,6 @@ class DistributorController extends Controller
                 'amount' => $membershipPackage->price
             ]);
 
-            $upline->save();
-
             Referral::create([
                 'upline_id' => $upline->id,
                 'distributor_id' => $distributor->id

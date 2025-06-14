@@ -56,6 +56,9 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
 
     Route::get('my-tree', [MyTreeController::class, 'index'])->middleware('user.distributor');
     Route::get('my-tree/create', [MyTreeController::class, 'create'])->middleware('user.distributor');
+    Route::post('my-tree', [MyTreeController::class, 'store'])->middleware('user.distributor');
+    Route::get('my-tree/{id}', [MyTreeController::class, 'show'])->middleware('user.distributor');
+    Route::get('users/{id}', [DashboardController::class, 'user_details'])->middleware('user.distributor');
 
     Route::get('request-withdrawal', [BonusController::class, 'request_withdrawal'])->middleware('user.distributor');
     Route::get('bonus-withdrawals', [BonusController::class, 'bonus_withdrawals'])->middleware('user.admin');
