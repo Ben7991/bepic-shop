@@ -28,11 +28,6 @@ class DashboardController extends Controller
         return view('dashboard.top-sales-chart');
     }
 
-    public function wallet_transfer_history(): View
-    {
-        return view('dashboard.wallet-transfer-history');
-    }
-
     public function account_settings(): View
     {
         return view('dashboard.account-settings');
