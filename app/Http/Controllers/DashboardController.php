@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Distributor;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -93,6 +94,33 @@ class DashboardController extends Controller
             return redirect()->back()->with([
                 'message' => $e->getMessage(),
                 'variant' => 'error'
+            ]);
+        }
+    }
+
+    public function user_details(int $id)
+    {
+        try {
+            $distributor = Distributor::find($id);
+            $user = $distributor->user;
+            $leftLeg = $rightLeg = 0;
+
+            if ($user->upline !== null) {
+                $leftLeg = $user->upline->left_leg;
+                $rightLeg = $user->upline->right_leg;
+            }
+
+            return response()->json([
+                'data' => [
+                    'name' => $user->name,
+                    'id' => $user->id,
+                    'left_leg' => $leftLeg,
+                    'right_leg' => $rightLeg
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => "User doesn't exist"
             ]);
         }
     }
