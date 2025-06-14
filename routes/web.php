@@ -52,6 +52,7 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('distributors/{id}/edit', [DistributorController::class, 'edit'])->middleware('user.admin');
     Route::put('distributors/{id}', [DistributorController::class, 'update'])->middleware('user.admin');
     Route::put('distributors/{id}/transfer-wallet', [DistributorController::class, 'transfer_wallet'])->middleware('user.admin');
+    Route::put('distributors/{id}/pass-code', [DistributorController::class, 'pass_code'])->middleware('user.admin');
 
     Route::get('my-tree', [MyTreeController::class, 'index'])->middleware('user.distributor');
 

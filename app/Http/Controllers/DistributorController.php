@@ -168,4 +168,25 @@ class DistributorController extends Controller
             ]);
         }
     }
+
+    public function pass_code(Request $request, string $id): RedirectResponse
+    {
+        try {
+            $password = TextGenerator::generate();
+
+            $user = User::findOrFail($id);
+            $user->password = $password;
+            $user->save();
+
+            return redirect()->back()->with([
+                'message' => "Distributor password changed to $password successfully",
+                'pass' => 'yes'
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with([
+                'message' => 'Distributor not found',
+                'pass' => 'yes'
+            ]);
+        }
+    }
 }

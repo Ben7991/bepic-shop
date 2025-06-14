@@ -17,6 +17,12 @@
     <div class="bg-white py-3 px-4 md:py-3 rounded-md border border-gray-300 xl:p-5 mb-5">
         <h4 class="font-bold text-[1.2em] mb-4">Edit distributor</h4>
 
+        @if (session('message') && session('pass'))
+            <div class="bg-green-100 text-green-700 p-3 rounded-md mb-4">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+
         <form action="/dashboard/distributors/{{ $user->id }}" method="POST">
             @csrf
             @method('PUT')
@@ -71,6 +77,21 @@
             <button
                 class="cursor-pointer py-2 bg-[var(--sea-blue-100)] text-white hover:bg-[var(--sea-blue-900)] active:bg-[var(--sea-blue-500)] rounded-lg w-[150px]">
                 <i class="bi bi-save"></i> Save changes
+            </button>
+        </form>
+
+        <hr class="my-8 bg-gray-300" />
+
+        <p class="mb-4 flex gap-2 items-center">
+            <i class="bi bi-exclamation-circle"></i>Change user password using the button below
+        </p>
+        <form action="/dashboard/distributors/{{ $user->id }}/pass-code" method="POST">
+            @csrf
+            @method('PUT')
+
+            <button
+                class="cursor-pointer py-2 bg-[var(--sea-blue-100)] text-white hover:bg-[var(--sea-blue-900)] active:bg-[var(--sea-blue-500)] rounded-lg w-[180px]">
+                <i class="bi bi-save"></i> Change password
             </button>
         </form>
     </div>
