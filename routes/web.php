@@ -47,6 +47,11 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('wallet-transfer-history', [DashboardController::class, 'wallet_transfer_history'])->middleware('user.admin');
 
     Route::get('distributors', [DistributorController::class, 'index'])->middleware('user.admin');
+    Route::get('distributors/create', [DistributorController::class, 'create'])->middleware('user.admin');
+    Route::post('distributors', [DistributorController::class, 'store'])->middleware('user.admin');
+    Route::get('distributors/{id}/edit', [DistributorController::class, 'edit'])->middleware('user.admin');
+    Route::put('distributors/{id}', [DistributorController::class, 'update'])->middleware('user.admin');
+    Route::put('distributors/{id}/transfer-wallet', [DistributorController::class, 'transfer_wallet'])->middleware('user.admin');
 
     Route::get('my-tree', [MyTreeController::class, 'index'])->middleware('user.distributor');
 
