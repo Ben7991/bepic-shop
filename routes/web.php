@@ -55,6 +55,7 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('distributors/wallet-transfers', [DistributorController::class, 'wallet_transfers'])->middleware('user.admin');
 
     Route::get('my-tree', [MyTreeController::class, 'index'])->middleware('user.distributor');
+    Route::get('my-tree/create', [MyTreeController::class, 'create'])->middleware('user.distributor');
 
     Route::get('request-withdrawal', [BonusController::class, 'request_withdrawal'])->middleware('user.distributor');
     Route::get('bonus-withdrawals', [BonusController::class, 'bonus_withdrawals'])->middleware('user.admin');
