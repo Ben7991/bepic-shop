@@ -33,11 +33,6 @@ class DashboardController extends Controller
         return view('dashboard.wallet-transfer-history');
     }
 
-    public function bonus_withdrawals(): View
-    {
-        return view('dashboard.bonus-withdrawals');
-    }
-
     public function distributors(): View
     {
         return view('dashboard.distributors');
