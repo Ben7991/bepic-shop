@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\Trait\DataSanitizer;
+
 abstract class Controller
 {
-    protected function sanitize($data): string {
-        $data = trim($data);
-        $data = htmlspecialchars($data);
-        return stripslashes($data);
-    }
+    use DataSanitizer;
 }
