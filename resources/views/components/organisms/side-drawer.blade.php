@@ -39,6 +39,11 @@
                 <i class="bi bi-diagram-2 text-xl"></i>
                 My Tree
             </a>
+            <a href="/dashboard/incentives-won"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Incentives Won' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-award text-xl"></i>
+                Incentives Won
+            </a>
             <a href="/dashboard/request-withdrawal"
                 class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Request Withdrawal' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
                 <i class="bi bi-question-lg text-xl"></i>
@@ -55,6 +60,11 @@
                 class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Order History' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
                 <i class="bi bi-clock-history text-xl"></i>
                 Order History
+            </a>
+            <a href="/dashboard/awards"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Awards' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-award text-xl"></i>
+                Awards
             </a>
             <a href="/dashboard/bonus-withdrawals"
                 class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Bonus Withdrawals' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">

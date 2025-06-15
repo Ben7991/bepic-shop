@@ -35,6 +35,9 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::post('incentives', [IncentiveController::class, 'store'])->middleware('user.admin');
     Route::get('incentives/{id}/edit', [IncentiveController::class, 'edit'])->middleware('user.admin');
     Route::put('incentives/{id}', [IncentiveController::class, 'update'])->middleware('user.admin');
+    Route::get('incentives-won', [IncentiveController::class, 'incentive_won'])->middleware('user.distributor');
+    Route::get('awards', [IncentiveController::class, 'awards'])->middleware('user.admin');
+    Route::put('awards/{id}/approve', [IncentiveController::class, 'approve_award'])->middleware('user.admin');
 
     Route::get('products', [ProductController::class, 'index']);
     Route::get('products/create', [ProductController::class, 'create'])->middleware('user.admin');
