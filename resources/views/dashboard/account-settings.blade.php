@@ -1,9 +1,7 @@
 <x-layouts.dashboard>
     <x-slot name="title">Account Settings</x-slot>
 
-    <div class="flex gap-2 flex-col md:flex-row md:items-center md:justify-between mb-4 xl:mb-7">
-        <h1 class="text-2xl font-bold">Account Settings</h1>
-    </div>
+    <h1 class="text-2xl font-bold mb-4 xl:mb-7">Account Settings</h1>
 
     @if (session('message') && session('variant'))
         <x-molecules.alert message="{{ session()->get('message') }}" variant="{{ session()->get('variant') }}" />

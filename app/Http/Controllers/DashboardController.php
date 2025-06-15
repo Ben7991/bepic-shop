@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\BonusWithdrawal;
 use App\Models\Distributor;
 use App\Models\Order;
+use App\Models\Referral;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Utils\Enum\RecordStatus;
+use App\Utils\Enum\Role;
+use App\Utils\Enum\TransactionType;
+use App\Utils\Enum\UserStatus;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +24,89 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
+    private function getTotalOrders(int $distributorId)
+    {
+        $orderSummary = DB::table('orders')
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->join('distributors', 'distributors.id', '=', 'orders.distributor_id')
+            ->join('users', 'users.id', '=', 'distributors.user_id')
+            ->select(DB::raw('orders.distributor_id, distributors.user_id as id, users.name, users.username, SUM(orders.quantity * products.price) as total_purchase'))
+            ->where('distributor_id', $distributorId)
+            ->groupBy('orders.distributor_id', 'distributors.user_id', 'users.name', 'users.username')
+            ->orderBy('total_purchase', 'desc')
+            ->take(10)
+            ->first();
+
+        return $orderSummary->total_purchase ?? 0;
+    }
+
+    private function getDistributorDashboardData(): array
+    {
+        $distributor = Auth::user()->distributor;
+        $transactions = Transaction::where('distributor_id', $distributor->id)
+            ->orderBy('id', 'desc')
+            ->take(5)
+            ->get();
+        $withdrawals = BonusWithdrawal::where('distributor_id', $distributor->id)
+            ->orderBy('id', 'desc')
+            ->take(5)
+            ->get();
+
+        $upline = Auth::user()->upline;
+        $usersAdded = 0;
+
+        if ($upline !== null) {
+            $usersAdded = Referral::where('upline_id', $upline->id)->count();
+        }
+
+        $currentDate = Carbon::now();
+        $nextMaintenance = Carbon::parse($distributor->next_maintenance);
+        $remainingDays = (int)$currentDate->diffInDays($nextMaintenance);
+
+        return [
+            'transactions' => $transactions,
+            'withdrawals' => $withdrawals,
+            'users_added' => $usersAdded,
+            'remainingDays' => $remainingDays,
+            'totalOrders' => $this->getTotalOrders($distributor->id)
+        ];
+    }
+
+    private function getAdminDashboardData(): array
+    {
+        $bonusWithdrawalCount = BonusWithdrawal::count();
+        $walletTransferCount = Transaction::where('transaction_type', TransactionType::DEPOSIT->name)
+            ->count();
+        $distributorCount = User::where('role', Role::DISTRIBUTOR->name)
+            ->where('status', UserStatus::ACTIVE->name)
+            ->count();
+
+        $recentDistributors = User::where('role', Role::DISTRIBUTOR->name)
+            ->where('status', UserStatus::ACTIVE->name)
+            ->orderBy('id', 'desc')
+            ->take(5)
+            ->get();
+
+        $recentWithdrawals = BonusWithdrawal::orderBy('id', 'desc')
+            ->take(5)
+            ->get();
+
+        return [
+            'distributorCount' => $distributorCount,
+            'walletTransferCount' => $walletTransferCount,
+            'bonusWithdrawalCount' => $bonusWithdrawalCount,
+            'recentDistributors' => $recentDistributors,
+            'recentWithdrawals' => $recentWithdrawals
+        ];
+    }
+
     public function index(): View
     {
-        return view('dashboard.index');
+        if (Auth::user()->role === Role::DISTRIBUTOR->name) {
+            return view('dashboard.index', $this->getDistributorDashboardData());
+        } else {
+            return view('dashboard.index', $this->getAdminDashboardData());
+        }
     }
 
     public function order_history(): View
