@@ -68,4 +68,6 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('request-withdrawal', [BonusController::class, 'request_withdrawal'])->middleware('user.distributor');
 
     Route::get('bonus-withdrawals', [BonusController::class, 'bonus_withdrawals'])->middleware('user.admin');
+
+    Route::get('transactions', [DashboardController::class, 'transactions'])->middleware('user.distributor');
 });

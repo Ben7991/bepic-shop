@@ -1,4 +1,12 @@
 <x-layouts.dashboard>
     <x-slot name="title">Request Withdrawal</x-slot>
-    <h1>Request Withdrawal</h1>
+
+    <div class="flex gap-2 flex-col md:flex-row md:items-center md:justify-between mb-4 xl:mb-7">
+        <h1 class="text-2xl font-bold">Request Withdrawal</h1>
+        <a href="/dashboard/my-tree/create" class="hover:underline text-blue-700">
+            Submit Request <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+
+
 </x-layouts.dashboard>

@@ -6,11 +6,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Distributor;
 use App\Models\Order;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Utils\Enum\RecordStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -58,7 +60,19 @@ class DashboardController extends Controller
 
     public function top_sales_chart(): View
     {
-        return view('dashboard.top-sales-chart');
+        $result = DB::table('orders')
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->join('distributors', 'distributors.id', '=', 'orders.distributor_id')
+            ->join('users', 'users.id', '=', 'distributors.user_id')
+            ->select(DB::raw('orders.distributor_id, distributors.user_id as id, users.name, SUM(orders.quantity * products.price) as total_purchase'))
+            ->groupBy('orders.distributor_id', 'distributors.user_id', 'users.name', 'users.username')
+            ->orderBy('total_purchase', 'desc')
+            ->take(10)
+            ->get();
+
+        return view('dashboard.top-sales-chart', [
+            'rows' => $result
+        ]);
     }
 
     public function account_settings(): View
@@ -155,5 +169,14 @@ class DashboardController extends Controller
                 'message' => "User doesn't exist"
             ]);
         }
+    }
+
+    public function transactions(): View
+    {
+        $distributor = Auth::user()->distributor;
+
+        return view('dashboard.transactions', [
+            'transactions' => Transaction::where('distributor_id', $distributor->id)->orderBy('id', 'desc')->get()
+        ]);
     }
 }
