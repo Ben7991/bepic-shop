@@ -97,6 +97,7 @@ class MyTreeController extends Controller
             $cashBonus->awardCashBonus();
 
             $cyclePoint = new CyclePoint($upline, $builder->leg, $membershipPackage->point);
+            $cyclePoint->incrementLegCount($upline, $builder->leg);
             $cyclePoint->cycle();
 
             return redirect('/dashboard/my-tree')->with([
