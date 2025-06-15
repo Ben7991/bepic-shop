@@ -95,3 +95,136 @@ table.dataTable th.dt-type-numeric,
 table.dataTable td.dt-type-numeric {
     text-align: left !important;
 }
+
+.slider-container {
+    width: 250px;
+    z-index: 1;
+}
+
+.slider {
+    width: calc(250px * 3);
+    height: inherit;
+    animation: slide-left 10s infinite;
+}
+
+@keyframes slide-left {
+    0% {
+        left: 0;
+    }
+    20% {
+        left: 0;
+    }
+    30% {
+        left: -250px;
+    }
+    50% {
+        left: -250px;
+    }
+    60% {
+        left: -500px;
+    }
+    100% {
+        left: -500px;
+    }
+}
+
+.slider-item {
+    width: 250px;
+    height: inherit;
+}
+
+@media (min-width: 768px) {
+    .slider-container,
+    .slider-item {
+        width: 230px;
+    }
+
+    .slider {
+        width: calc(230px * 4);
+    }
+
+    @keyframes slide-left {
+        0% {
+            left: 0;
+        }
+        20% {
+            left: 0;
+        }
+        30% {
+            left: -230px;
+        }
+        50% {
+            left: -230px;
+        }
+        60% {
+            left: -460px;
+        }
+        100% {
+            left: -460px;
+        }
+    }
+}
+
+@media (min-width: 996px) {
+    .slider-container,
+    .slider-item {
+        width: 280px;
+    }
+
+    .slider {
+        width: calc(280px * 4);
+    }
+
+    @keyframes slide-left {
+        0% {
+            left: 0;
+        }
+        20% {
+            left: 0;
+        }
+        30% {
+            left: -280px;
+        }
+        50% {
+            left: -280px;
+        }
+        60% {
+            left: -560px;
+        }
+        100% {
+            left: -560px;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .slider-container,
+    .slider-item {
+        width: 300px;
+    }
+
+    .slider {
+        width: calc(300px * 4);
+    }
+
+    @keyframes slide-left {
+        0% {
+            left: 0;
+        }
+        20% {
+            left: 0;
+        }
+        30% {
+            left: -300px;
+        }
+        50% {
+            left: -300px;
+        }
+        60% {
+            left: -600px;
+        }
+        100% {
+            left: -600px;
+        }
+    }
+}
