@@ -44,6 +44,17 @@
         </div>
     @else
         {{-- for distributors --}}
+        <div class="w-full space-y-4 md:space-y-0 md:flex md:justify-between lg:justify-start lg:gap-4">
+            @foreach ($products as $product)
+                <a class="block md:basis-[350px]" href="/dashboard/products/{{ $product->id }}">
+                    <div class="bg-white rounded-md p-3 text-center xl:p-4 border border-gray-300">
+                        <h5 class="font-bold text-xl">{{ $product->name }}</h5>
+                        <img src="{{ asset('/storage/' . $product->image) }}" class="w-full" />
+                        <h3 class="font-semibold text-xl">&#8373; {{ $product->price }}</h3>
+                    </div>
+                </a>
+            @endforeach
+        </div>
     @endif
 
     @push('scripts')

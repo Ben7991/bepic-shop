@@ -41,8 +41,13 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::post('products', [ProductController::class, 'store'])->middleware('user.admin');
     Route::get('products/{id}/edit', [ProductController::class, 'edit'])->middleware('user.admin');
     Route::put('products/{id}', [ProductController::class, 'update'])->middleware('user.admin');
+    Route::get('products/{id}', [ProductController::class, 'show'])->middleware('user.distributor');
+    Route::post('products/{id}/purchase', [ProductController::class, 'purchase'])->middleware('user.distributor');
 
-    Route::get('order-history', [DashboardController::class, 'order_history']);
+    Route::get('order-history', [DashboardController::class, 'order_history'])->middleware('user.admin');
+    Route::put('order-history/{id}/approve', [DashboardController::class, 'approve_order'])->middleware('user.admin');
+    Route::get('purchase-history', [DashboardController::class, 'purchase_history'])->middleware('user.distributor');
+
     Route::get('top-sales-chart', [DashboardController::class, 'top_sales_chart']);
 
     Route::get('distributors', [DistributorController::class, 'index'])->middleware('user.admin');
@@ -61,5 +66,6 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('users/{id}', [DashboardController::class, 'user_details'])->middleware('user.distributor');
 
     Route::get('request-withdrawal', [BonusController::class, 'request_withdrawal'])->middleware('user.distributor');
+
     Route::get('bonus-withdrawals', [BonusController::class, 'bonus_withdrawals'])->middleware('user.admin');
 });

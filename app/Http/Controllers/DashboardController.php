@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Distributor;
+use App\Models\Order;
 use App\Models\User;
+use App\Utils\Enum\RecordStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +23,37 @@ class DashboardController extends Controller
 
     public function order_history(): View
     {
-        return view('dashboard.order-history');
+        return view('dashboard.order-history', [
+            'orders' => Order::orderBy('id', 'desc')->get(),
+            'pending' => Order::where('status', RecordStatus::PENDING->name)->count(),
+        ]);
+    }
+
+    public function approve_order(int $id): RedirectResponse
+    {
+        try {
+            $order = Order::find($id);
+            $order->status = RecordStatus::APPROVED->name;
+            $order->save();
+
+            return redirect()->back()->with('message', 'Order approved successfully');
+        } catch (\Exception $e) {
+            return redirect()->back();
+        }
+    }
+
+    public function purchase_history(): View
+    {
+        $user = Auth::user();
+        $distributor = $user->distributor;
+        $pending = Order::where('status', RecordStatus::PENDING->name)
+            ->where('distributor_id', $distributor->id)
+            ->count();
+
+        return view('dashboard.purchase-history', [
+            'orders' => Order::where('distributor_id', $distributor->id)->orderBy('id', 'desc')->get(),
+            'pending' => $pending,
+        ]);
     }
 
     public function top_sales_chart(): View

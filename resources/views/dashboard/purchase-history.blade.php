@@ -1,7 +1,7 @@
 <x-layouts.dashboard>
-    <x-slot name="title">Order History</x-slot>
+    <x-slot name="title">Purchase History</x-slot>
 
-    <h1 class="text-2xl font-bold mb-4 xl:mb-7">Order History</h1>
+    <h1 class="text-2xl font-bold mb-4 xl:mb-7">Purchase History</h1>
 
     @if (session('message') && session('variant'))
         <x-molecules.alert message="{{ session()->get('message') }}" variant="{{ session()->get('variant') }}" />
@@ -31,11 +31,10 @@
                 <tr>
                     <th>Date Added</th>
                     <th>Product Name</th>
-                    <th>Amount</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
                     <th>Order Type</th>
                     <th>Status</th>
-                    <th>Distributor Details</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,7 +42,8 @@
                     <tr>
                         <td class="text-left">{{ $order->created_at }}</td>
                         <td>{{ $order->product->name }}</td>
-                        <td>&#8373; {{ number_format($order->product->price, 2) }}</td>
+                        <td>{{ $order->quantity }}</td>
+                        <td>&#8373; {{ number_format($order->product->price * $order->quantity, 2) }}</td>
                         <td>
                             <small
                                 class="inline-block py-1 px-2 rounded-md {{ $order->purchase_type === 'REORDER' ? 'text-blue-700 bg-green-100' : 'text-white bg-orange-400' }}">
@@ -55,20 +55,6 @@
                                 class="inline-block py-1 px-2 rounded-md {{ $order->status === 'APPROVED' ? 'text-green-700 bg-green-100' : 'text-white bg-gray-400' }}">
                                 {{ $order->status }}
                             </small>
-                        </td>
-                        <td>{{ $order->distributor->user->name }} ({{ $order->distributor->user->username }})</td>
-                        <td>
-                            @if ($order->status === 'PENDING')
-                                <form action="/dashboard/order-history/{{ $order->id }}/approve" method="POST">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <button
-                                        class="py-1 px-3 inline-block bg-green-700 text-white rounded cursor-pointer">
-                                        <i class="bi bi-check2"></i> Approve
-                                    </button>
-                                </form>
-                            @endif
                         </td>
                     </tr>
                 @endforeach
