@@ -24,7 +24,7 @@
             <div class="mb-3">
                 <label for="point" class="mb-1 inline-block">Point</label>
                 <input type="number" name="point" id="point" value="{{ $incentive->point }}"
-                    class="flex items-center px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
                 @error('point')
                     <small class="text-red-700">{{ $message }}</small>
                 @enderror
@@ -32,7 +32,7 @@
             <div class="mb-3">
                 <label for="award" class="mb-1 inline-block">Award</label>
                 <input type="text" name="award" id="award" value="{{ $incentive->award }}"
-                    class="flex items-center px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
                 @error('award')
                     <small class="text-red-700">{{ $message }}</small>
                 @enderror
