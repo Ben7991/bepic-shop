@@ -9,6 +9,7 @@ use Carbon\Carbon;
 
 class CyclePoint
 {
+    private AwardIncentive $awardIncentive;
     /**
      * Create a new class instance.
      */
@@ -16,7 +17,9 @@ class CyclePoint
         private Upline $upline,
         private Leg $leg,
         private int $point
-    ) {}
+    ) {
+        $this->awardIncentive = new AwardIncentive();
+    }
 
     public function cycle()
     {
@@ -30,7 +33,7 @@ class CyclePoint
                 $this->incrementPoint($upline, $leg);
             }
 
-            $this->incrementLegCount($upline, $leg);
+            $this->awardIncentive->awardDistributorIncentive($upline, $distributor);
 
             $leg = $distributor->leg === "LEFT" ? Leg::LEFT : Leg::RIGHT;
 
@@ -63,7 +66,7 @@ class CyclePoint
         $upline->save();
     }
 
-    private function incrementLegCount(Upline $upline, Leg $leg)
+    public function incrementLegCount(Upline $upline, Leg $leg)
     {
         if ($leg === Leg::LEFT) {
             $upline->left_leg_count += $this->point;

@@ -1,0 +1,75 @@
+<?php
+
+namespace App\NetworkMarket;
+
+use App\Models\Award;
+use App\Models\Distributor;
+use App\Models\Incentive;
+use App\Models\Upline;
+use Illuminate\Database\Eloquent\Collection;
+
+class AwardIncentive
+{
+    private Collection $incentives;
+
+    /**
+     * Create a new class instance.
+     */
+    public function __construct()
+    {
+        $this->setIncentives();
+    }
+
+    private function setIncentives(): void
+    {
+        $this->incentives = Incentive::orderBy('point', 'desc')->get();
+    }
+
+    public function awardDistributorIncentive(Upline $upline, Distributor $distributor): void
+    {
+        $minimumPoint = min($upline->left_leg, $upline->right_leg);
+
+        if ($minimumPoint === 0 || $minimumPoint === null)
+            return;
+
+
+        $attainedIncentive = $this->getIncentiveWon($minimumPoint);
+
+        if ($attainedIncentive === null)
+            return;
+
+        $wonIncentiveAlreadyAwarded = $this->checkIfAttainedIncentiveAlreadyAwarded($attainedIncentive, $distributor);
+
+        if ($wonIncentiveAlreadyAwarded)
+            return;
+
+        Award::create([
+            'incentive_id' => $attainedIncentive->id,
+            'distributor_id' => $distributor->id
+        ]);
+    }
+
+    private function getIncentiveWon($minimumPoint): Incentive | null
+    {
+        foreach ($this->incentives as $incentive) {
+            if ($minimumPoint >= $incentive->point) {
+                return $incentive;
+            }
+        }
+
+        return null;
+    }
+
+    private function checkIfAttainedIncentiveAlreadyAwarded(Incentive $attainedIncentive, Distributor $distributor): bool
+    {
+        $existing = Award::where('incentive_id', $attainedIncentive->id)
+            ->where('distributor_id', $distributor->id)
+            ->first();
+
+        if ($existing !== null) {
+            return true;
+        }
+
+        return false;
+    }
+}
