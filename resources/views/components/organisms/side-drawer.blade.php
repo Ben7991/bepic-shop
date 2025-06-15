@@ -44,6 +44,11 @@
                 <i class="bi bi-question-lg text-xl"></i>
                 Request Withdrawal
             </a>
+            <a href="/dashboard/transactions"
+                class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Transactions' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
+                <i class="bi bi-cash-coin text-xl"></i>
+                Transactions
+            </a>
         @endif
         @if (Auth::user()->role === 'ADMIN')
             <a href="/dashboard/order-history"
