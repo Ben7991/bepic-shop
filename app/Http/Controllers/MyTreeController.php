@@ -8,9 +8,11 @@ use App\Models\Distributor;
 use App\Models\MembershipPackage;
 use App\Models\Referral;
 use App\Models\Transaction;
+use App\Models\Upline;
 use App\Models\User;
 use App\NetworkMarket\CashBonus;
 use App\NetworkMarket\CyclePoint;
+use App\Utils\Enum\Leg;
 use App\Utils\Enum\TransactionType;
 use App\Utils\TextGenerator;
 use Illuminate\Http\RedirectResponse;
@@ -68,7 +70,18 @@ class MyTreeController extends Controller
             $membershipPackage = MembershipPackage::getMembershipPackageById((int)$validated['package']);
             $uplineUser = User::getUserById($builder->uplineId);
             $upline = $uplineUser->getUpline();
+
+            if ($this->checkIfSpaceIsNotOccupied($upline, $builder->leg)) {
+                throw new \Exception('Leg already occupied');
+            }
+
             $uplineDistributorDetails = $uplineUser->distributor;
+
+            $referral = $loggedIdUser->getUpline();
+
+            if ($loggedIdUser->id !== $uplineUser->id) {
+                $uplineDistributorDetails = $loggedIdUser->distributor;
+            }
 
             if ($uplineDistributorDetails->wallet < $membershipPackage->price) {
                 throw new \Exception("Insufficient balance in upline's wallet");
@@ -85,8 +98,6 @@ class MyTreeController extends Controller
                 'transaction_type' => TransactionType::REGISTRATION->name,
                 'amount' => $membershipPackage->price
             ]);
-
-            $referral = $loggedIdUser->getUpline();
 
             Referral::create([
                 'upline_id' => $referral->id,
@@ -108,6 +119,23 @@ class MyTreeController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+    }
+
+    private function checkIfSpaceIsNotOccupied(Upline $upline, Leg $leg): bool
+    {
+        $distributors = $upline->distributors;
+
+        if (count($distributors) === 2) {
+            return true;
+        }
+
+        foreach ($distributors as $distributor) {
+            if ($distributor->leg === $leg->name) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function show(string $id): View | RedirectResponse
