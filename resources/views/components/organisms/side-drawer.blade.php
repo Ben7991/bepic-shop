@@ -3,7 +3,7 @@
 <x-atoms.backdrop />
 <aside
     class="bg-[var(--gray-1000)] drawer--hide lg:w-[300px!important] transition-[width] h-full
-            fixed top-0 left-0 overflow-y-auto py-8 xl:py-10 lg:static lg:h-auto"
+            fixed top-0 left-0 overflow-y-auto py-8 xl:py-10 lg:static lg:h-auto z-20"
     id="side-drawer">
     <div class="mb-5 flex items-center justify-center xl:mb-10">
         <x-molecules.user-profile />

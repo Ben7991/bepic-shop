@@ -85,7 +85,7 @@
                                             <div
                                                 class="absolute w-[2px] h-5 bg-gray-500 -top-5 left-1/2 -translate-x-1/2">
                                             </div>
-                                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mx-auto"
+                                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mx-auto border border-gray-500"
                                                 onclick="showDownlineDetails({{ $dist2nd->id }})">
                                                 <i class="bi bi-person"></i>
                                             </div>
@@ -105,7 +105,7 @@
                                                                 <div
                                                                     class="absolute w-[2px] h-5 bg-gray-500 -top-5 left-1/2 -translate-x-1/2">
                                                                 </div>
-                                                                <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center mx-auto"
+                                                                <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border border-gray-500 flex items-center justify-center mx-auto"
                                                                     onclick="showDownlineDetails({{ $dist3rd->id }})">
                                                                     <i class="bi bi-person"></i>
                                                                 </div>
