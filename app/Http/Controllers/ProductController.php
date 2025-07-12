@@ -136,7 +136,6 @@ class ProductController extends Controller
             Order::createViaProductPurchase($distributor->id, $product->id, $purchaseBuilder);
 
             $distributor->wallet -= $amount;
-            $distributor->save();
 
             if ($purchaseBuilder->purchaseType === PurchaseType::MAINTENANCE) {
                 $nextMaintenanceDate = Carbon::now()->addDays(30);
@@ -150,6 +149,8 @@ class ProductController extends Controller
 
                 $message = 'Order is processing';
             }
+            
+            $distributor->save();
 
             $upline = $distributor->upline;
             $leg = $distributor->leg === Leg::LEFT->name ? Leg::LEFT : Leg::RIGHT;
