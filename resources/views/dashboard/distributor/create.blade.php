@@ -36,7 +36,15 @@
                 <input type="text" name="username" id="username" value="{{ old('username') }}"
                     class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
                 @error('username')
-                    <small class="text-red-700">{{ $message }}</small>
+                    <small class="text-red-700">Must contain only letters and numbers</small>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="password" class="mb-1 inline-block">Password</label>
+                <input type="password" name="password" id="password" value="{{ old('password') }}"
+                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                @error('password')
+                    <small class="text-red-700">Must contain only letters and numbers</small>
                 @enderror
             </div>
             <div class="mb-3">
@@ -58,21 +66,6 @@
                     </label>
                 </div>
                 @error('username')
-                    <small class="text-red-700">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="membership-package" class="mb-1 inline-block">Select membership package</label>
-                <select name="package"
-                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]">
-                    <option value="">Select your preferred package</option>
-                    @foreach ($packages as $package)
-                        <option value="{{ $package->id }}">
-                            &#8373; {{ $package->price }} - {{ $package->product_quantity }}box
-                        </option>
-                    @endforeach
-                </select>
-                @error('membership-package')
                     <small class="text-red-700">{{ $message }}</small>
                 @enderror
             </div>

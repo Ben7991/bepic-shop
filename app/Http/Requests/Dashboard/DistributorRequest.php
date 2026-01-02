@@ -25,11 +25,11 @@ class DistributorRequest extends FormRequest
         return [
             "name" => "bail|required|regex:/^[a-zA-Z ]*$/",
             "username" => "bail|required|regex:/^[a-zA-Z0-9]*[0-9]{1}[a-zA-Z0-9]*$/",
+            "password" => "bail|required|regex:/^[a-zA-Z0-9]*[0-9]{1}[a-zA-Z0-9]*$/",
             "upline_id" => "bail|required|regex:/^[A-Z]{3}[0-9]{8}$/",
             "leg" => "required",
             "country" => "required",
             "phone" => "required",
-            "package" => "required"
         ];
     }
 }
