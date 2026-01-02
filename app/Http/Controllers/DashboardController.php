@@ -144,23 +144,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function top_sales_chart(): View
-    {
-        $result = DB::table('orders')
-            ->join('products', 'orders.product_id', '=', 'products.id')
-            ->join('distributors', 'distributors.id', '=', 'orders.distributor_id')
-            ->join('users', 'users.id', '=', 'distributors.user_id')
-            ->select(DB::raw('orders.distributor_id, distributors.user_id as id, users.name, SUM(orders.quantity * products.price) as total_purchase'))
-            ->groupBy('orders.distributor_id', 'distributors.user_id', 'users.name', 'users.username')
-            ->orderBy('total_purchase', 'desc')
-            ->take(10)
-            ->get();
-
-        return view('dashboard.top-sales-chart', [
-            'rows' => $result
-        ]);
-    }
-
     public function account_settings(): View
     {
         return view('dashboard.account-settings');

@@ -44,8 +44,6 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::put('order-history/{id}/approve', [DashboardController::class, 'approve_order'])->middleware('user.admin');
     Route::get('purchase-history', [DashboardController::class, 'purchase_history'])->middleware('user.distributor');
 
-    Route::get('top-sales-chart', [DashboardController::class, 'top_sales_chart']);
-
     Route::get('distributors', [DistributorController::class, 'index'])->middleware('user.admin');
     Route::get('distributors/create', [DistributorController::class, 'create'])->middleware('user.admin');
     Route::post('distributors', [DistributorController::class, 'store'])->middleware('user.admin');
