@@ -12,6 +12,7 @@ class DistributorDtoBuilder
 
     public string $name;
     public string $username;
+    public string $password;
     public string $uplineId;
     public Leg $leg;
     public string $phone;
@@ -37,6 +38,12 @@ class DistributorDtoBuilder
         }
 
         $this->username = $this->sanitize($username);
+        return $this;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
         return $this;
     }
 
