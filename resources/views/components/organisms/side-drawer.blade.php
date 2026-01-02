@@ -13,11 +13,6 @@
             class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Dashboard' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
             <i class="bi bi-bar-chart text-xl"></i> Dashboard
         </a>
-        <a href="/dashboard/membership-packages"
-            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Membership Packages' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
-            <i class="bi bi-box text-xl"></i>
-            Membership Packages
-        </a>
         <a href="/dashboard/incentives"
             class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Incentives' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
             <i class="bi bi-gift text-xl"></i>
