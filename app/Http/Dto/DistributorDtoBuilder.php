@@ -14,7 +14,6 @@ class DistributorDtoBuilder
     public string $username;
     public string $uplineId;
     public Leg $leg;
-    public int $membershipPackageId;
     public string $phone;
     public string $country;
 
@@ -56,12 +55,6 @@ class DistributorDtoBuilder
     public function setCountry(string $country): self
     {
         $this->country = $this->sanitize($country);
-        return $this;
-    }
-
-    public function setMembershipPackageId(string $membershipPackageId): self
-    {
-        $this->membershipPackageId = (int)$this->sanitize($membershipPackageId);
         return $this;
     }
 
