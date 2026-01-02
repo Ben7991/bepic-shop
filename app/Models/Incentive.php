@@ -8,7 +8,7 @@ class Incentive extends Model
 {
     protected $fillable = [
         'point',
-        'award',
-        'status'
+        'distributor_award',
+        'sponsor_award',
     ];
 }

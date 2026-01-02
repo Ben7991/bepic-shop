@@ -8,7 +8,8 @@ class Award extends Model
 {
     public $fillable = [
         'distributor_id',
-        'incentive_id',
+        'award',
+        'from',
         'status'
     ];
 

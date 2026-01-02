@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('distributor_id')->constrained('distributors');
-            $table->foreignId('incentive_id')->constrained('incentives');
+            $table->string('award');
+            $table->string('from')->nullable();
             $table->enum('status', ['PENDING', 'APPROVED'])->default('PENDING');
         });
     }

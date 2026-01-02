@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('point');
-            $table->string('award');
+            $table->string('distributor_award');
+            $table->string('sponsor_award');
             $table->enum('status', ['ACTIVE', 'HIDDEN']);
         });
     }
