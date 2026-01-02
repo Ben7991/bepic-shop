@@ -6,7 +6,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncentiveController;
-use App\Http\Controllers\MembershipPackageController;
 use App\Http\Controllers\MyTreeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -23,12 +22,6 @@ Route::prefix("dashboard")->middleware('auth')->group(function () {
     Route::get('account-settings', [DashboardController::class, 'account_settings']);
     Route::post('account-settings/personal', [DashboardController::class, 'change_personal']);
     Route::post('account-settings/pass-code', [DashboardController::class, 'change_password']);
-
-    Route::get('membership-packages', [MembershipPackageController::class, 'index']);
-    Route::get('membership-packages/create', [MembershipPackageController::class, 'create'])->middleware('user.admin');
-    Route::post('membership-packages', [MembershipPackageController::class, 'store'])->middleware('user.admin');
-    Route::get('membership-packages/{id}/edit', [MembershipPackageController::class, 'edit'])->middleware('user.admin');
-    Route::put('membership-packages/{id}', [MembershipPackageController::class, 'update'])->middleware('user.admin');
 
     Route::get('incentives', [IncentiveController::class, 'index']);
     Route::get('incentives/create', [IncentiveController::class, 'create'])->middleware('user.admin');
