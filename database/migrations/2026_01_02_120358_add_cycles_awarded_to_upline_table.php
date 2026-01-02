@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('uplines', function (Blueprint $table) {
-            $table->smallInteger('cycles_awarded');
+            $table->smallInteger('cycles_awarded')->default(0);
             $table->timestamp('cycles_awarded_date')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
