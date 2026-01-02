@@ -54,7 +54,6 @@ class UserSeeder extends Seeder
             'user_id' => $companyUser->id,
             'upline_id' => $upline->id,
             'next_maintenance' => Carbon::now(),
-            'membership_package_id' => 1
         ]);
     }
 }
