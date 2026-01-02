@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Http\Dto\DistributorDtoBuilder;
 use App\Utils\Enum\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -94,15 +95,15 @@ class User extends Authenticatable
         return $this->hasOne(Distributor::class);
     }
 
-    public static function createViaDistributorData(string $name, string $username, string $password): self
+    public static function createViaDistributorData(DistributorDtoBuilder $dto): self
     {
         $role = Role::DISTRIBUTOR;
 
         return self::create([
             'id' => self::getNextId($role),
-            'name' => $name,
-            'username' => $username,
-            'password' => $password,
+            'name' => $dto->name,
+            'username' => $dto->username,
+            'password' => $dto->password,
             'role' => $role->name
         ]);
     }
