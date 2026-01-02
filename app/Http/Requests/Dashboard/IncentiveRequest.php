@@ -25,7 +25,8 @@ class IncentiveRequest extends FormRequest
     {
         return [
             'point' => 'bail|required|regex:/^[0-9]+$/',
-            'award' => 'required'
+            'distributor_award' => 'required',
+            'sponsor_award' => 'required'
         ];
     }
 }

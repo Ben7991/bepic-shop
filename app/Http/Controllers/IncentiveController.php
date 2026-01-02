@@ -31,7 +31,8 @@ class IncentiveController extends Controller
         try {
             Incentive::create([
                 'point' => $validated['point'],
-                'award' => $validated['award']
+                'distributor_award' => $validated['distributor_award'],
+                'sponsor_award' => $validated['sponsor_award']
             ]);
 
             return redirect('/dashboard/incentives')->with([
@@ -65,7 +66,8 @@ class IncentiveController extends Controller
         try {
             $incentive = Incentive::findOrFail($id);
             $incentive->point = $validated['point'];
-            $incentive->award = $validated['award'];
+            $incentive->distributor_award = $validated['distributor_award'];
+            $incentive->sponsor_award = $validated['sponsor_award'];
             $incentive->save();
 
             return redirect('/dashboard/incentives')->with([
