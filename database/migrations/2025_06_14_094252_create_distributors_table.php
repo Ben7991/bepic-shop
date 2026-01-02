@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id()->from(100000);
             $table->timestamps();
             $table->enum('leg', ['LEFT', 'RIGHT']);
-            $table->foreignId('membership_package_id')->constrained('membership_packages');
             $table->string('phone_number');
             $table->string('country');
             $table->decimal('wallet')->default(0);

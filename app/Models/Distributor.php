@@ -16,7 +16,6 @@ class Distributor extends Model
         'user_id',
         'upline_id',
         'next_maintenance',
-        'membership_package_id'
     ];
 
     public function user()
@@ -29,11 +28,6 @@ class Distributor extends Model
         return $this->belongsTo(Upline::class);
     }
 
-    public function membershipPackage()
-    {
-        return $this->belongsTo(MembershipPackage::class);
-    }
-
     public static function createViaDtoBuilder(DistributorDtoBuilder $builder, string $userId, int $uplineId): self
     {
         return self::create([
@@ -43,7 +37,6 @@ class Distributor extends Model
             'user_id' => $userId,
             'upline_id' => $uplineId,
             'next_maintenance' => Carbon::now()->addDays(30),
-            'membership_package_id' => $builder->membershipPackageId
         ]);
     }
 }
