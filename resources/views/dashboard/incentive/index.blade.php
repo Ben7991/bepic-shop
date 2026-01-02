@@ -20,7 +20,8 @@
                 <tr>
                     <th>Date Added</th>
                     <th>Point</th>
-                    <th>Award</th>
+                    <th>Distributor Award</th>
+                    <th>Sponsor Award</th>
                     @if (Auth::user()->role === 'ADMIN')
                         <th>Actions</th>
                     @endif
@@ -31,7 +32,8 @@
                     <tr>
                         <td class="text-left">{{ $incentive->created_at }}</td>
                         <td>{{ number_format($incentive->point) }}</td>
-                        <td>{{ $incentive->award }}</td>
+                        <td>{{ $incentive->distributor_award }}</td>
+                        <td>{{ $incentive->sponsor_award }}</td>
                         @if (Auth::user()->role === 'ADMIN')
                             <td>
                                 <a class="text-blue-700 hover:underline"

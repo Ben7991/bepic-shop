@@ -30,10 +30,18 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="award" class="mb-1 inline-block">Award</label>
-                <input type="text" name="award" id="award" value="{{ $incentive->award }}"
-                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
-                @error('award')
+                <label for="distributor_award" class="mb-1 inline-block">Distributor Award</label>
+                <input type="text" name="distributor_award" id="distributor_award"
+                    class="flex items-center px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                @error('distributor_award')
+                    <small class="text-red-700">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="sponsor_award" class="mb-1 inline-block">Sponsor Award</label>
+                <input type="text" name="sponsor_award" id="sponsor_award"
+                    class="flex items-center px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                @error('sponsor_award')
                     <small class="text-red-700">{{ $message }}</small>
                 @enderror
             </div>
