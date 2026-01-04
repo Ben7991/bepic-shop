@@ -39,7 +39,7 @@ class CyclePoint
                 $this->cycleBonus->awardBonus($upline);
             }
 
-            $this->awardIncentive->awardDistributorIncentive($upline, $distributor);
+            $this->awardIncentive->awardIncentive($upline, $distributor);
 
             $leg = $distributor->leg === "LEFT" ? Leg::LEFT : Leg::RIGHT;
 

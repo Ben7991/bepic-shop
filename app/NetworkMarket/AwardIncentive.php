@@ -25,7 +25,7 @@ class AwardIncentive
         $this->incentives = Incentive::orderBy('point', 'desc')->get();
     }
 
-    public function awardDistributorIncentive(Upline $upline, Distributor $distributor): void
+    public function awardIncentive(Upline $upline, Distributor $distributor): void
     {
         $minimumPoint = min($upline->left_leg, $upline->right_leg);
 
@@ -43,9 +43,20 @@ class AwardIncentive
         if ($wonIncentiveAlreadyAwarded)
             return;
 
+        // award distributor
         Award::create([
-            'incentive_id' => $attainedIncentive->id,
-            'distributor_id' => $distributor->id
+            'distributor_id' => $distributor->id,
+            'award' => $attainedIncentive->distributor_award,
+            'from' => 'Point accumulation'
+        ]);
+        
+        // award sponsor
+        $sponsor = $distributor->referral->upline;
+        $sponsorDistributor = $sponsor->user->distributor;
+        Award::create([
+            'distributor_id' => $sponsorDistributor->id,
+            'award' => $attainedIncentive->sponsor_award,
+            'from' => $distributor->user->name . " (" . $distributor->user->id . ")",
         ]);
     }
 
@@ -62,7 +73,7 @@ class AwardIncentive
 
     private function checkIfAttainedIncentiveAlreadyAwarded(Incentive $attainedIncentive, Distributor $distributor): bool
     {
-        $existing = Award::where('incentive_id', $attainedIncentive->id)
+        $existing = Award::where('award', $attainedIncentive->distributor_award)
             ->where('distributor_id', $distributor->id)
             ->first();
 

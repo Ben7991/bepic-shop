@@ -139,9 +139,8 @@ class ProductController extends Controller
             $distributor->wallet -= $amount;
 
             if ($purchaseBuilder->purchaseType === PurchaseType::MAINTENANCE) {
-                $nextMaintenanceDate = Carbon::now()->addDays(30);
+                $nextMaintenanceDate = Carbon::now()->addDays(30 * $purchaseBuilder->quantity);
                 $distributor->next_maintenance = $nextMaintenanceDate;
-
                 $message = 'Order processing and your account has been credited 30days';
             } else {
                 $productPurchaseBonus = new ProductPurchaseBonus();
@@ -152,9 +151,9 @@ class ProductController extends Controller
             $distributor->save();
 
             $upline = $distributor->upline;
+            $points = $purchaseBuilder->quantity * 70;
             $leg = $distributor->leg === Leg::LEFT->name ? Leg::LEFT : Leg::RIGHT;
-
-            $pointCycle = new CyclePoint($upline, $leg, $purchaseBuilder->quantity);
+            $pointCycle = new CyclePoint($upline, $leg, $points);
             $pointCycle->cycle();
 
             return redirect('/dashboard/purchase-history')->with([
