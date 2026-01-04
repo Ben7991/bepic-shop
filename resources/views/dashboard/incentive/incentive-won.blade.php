@@ -9,6 +9,7 @@
                 <tr>
                     <th>Date Added</th>
                     <th>Award</th>
+                    <th>From</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -16,7 +17,8 @@
                 @foreach ($awards as $award)
                     <tr>
                         <td>{{ $award->created_at }}</td>
-                        <td class="text-left">{{ $award->incentive->award }}</td>
+                        <td>{{ $award->award }}</td>
+                        <td>{{ $award->from }}</td>
                         <td>
                             <small
                                 class="inline-block py-1 px-2 rounded-md {{ $award->status === 'APPROVED' ? 'text-green-700 bg-green-100' : 'text-white bg-gray-400' }}">
