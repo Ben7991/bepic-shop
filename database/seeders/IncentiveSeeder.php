@@ -14,31 +14,31 @@ class IncentiveSeeder extends Seeder
     public function run(): void
     {
         Incentive::create([
-            'point' => 200,
+            'point' => 200 * 70,
             'distributor_award' => 'Washing machine',
             'sponsor_award' => 'Airflyer',
         ]);
 
         Incentive::create([
-            'point' => 700,
+            'point' => 700 * 70,
             'distributor_award' => 'Freezer',
             'sponsor_award' => 'TV',
         ]);
 
         Incentive::create([
-            'point' => 3500,
+            'point' => 3500 * 70,
             'distributor_award' => 'Dubai',
             'sponsor_award' => 'Dubai',
         ]);
 
         Incentive::create([
-            'point' => 10000,
+            'point' => 10000 * 70,
             'distributor_award' => '1st Car',
             'sponsor_award' => 'Motor',
         ]);
 
         Incentive::create([
-            'point' => 25000,
+            'point' => 25000 * 70,
             'distributor_award' => '4x4',
             'sponsor_award' => 'Small car',
         ]);
