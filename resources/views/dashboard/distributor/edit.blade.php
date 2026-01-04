@@ -47,6 +47,11 @@
                         class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
                 </div>
                 <div class="mb-3 md:w-[300px]">
+                    <label for="referral" class="mb-1 inline-block">Referral</label>
+                    <input type="text" id="referral" value="{{ $user->distributor->referral->upline->user->name }}" readonly
+                        class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                </div>
+                <div class="mb-3 md:w-[300px]">
                     <label for="leg" class="mb-1 inline-block">Select leg</label>
                     <input type="text" id="leg" value="{{ $user->distributor->leg }}" readonly
                         class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
