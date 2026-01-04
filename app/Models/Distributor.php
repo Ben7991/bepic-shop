@@ -28,6 +28,10 @@ class Distributor extends Model
         return $this->belongsTo(Upline::class);
     }
 
+    public function referral() {
+        return $this->hasOne(Referral::class);
+    }
+
     public static function createViaDtoBuilder(DistributorDtoBuilder $builder, string $userId, int $uplineId): self
     {
         return self::create([
