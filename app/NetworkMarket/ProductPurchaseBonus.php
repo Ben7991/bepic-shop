@@ -15,7 +15,7 @@ final class ProductPurchaseBonus
        $sponsorDistributorDetails = $sponsor->user->distributor;
 
        // 2. calculate the bonus amount
-        $bonusRate = 20;
+        $bonusRate = 0.20;
         $bonusAmount = $productPrice * $bonusRate;
 
         // 3. give sponsor the bonus and store the transaction
