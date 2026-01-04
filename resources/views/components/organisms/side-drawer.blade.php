@@ -72,11 +72,6 @@
                 Distributors
             </a>
         @endif
-        <a href="/dashboard/top-sales-chart"
-            class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Top Sales Chart' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
-            <i class="bi bi-graph-up-arrow text-xl"></i>
-            Top Sales Chart
-        </a>
         <a href="/dashboard/account-settings"
             class="flex gap-2 items-center py-2 px-4 rounded-lg {{ $title == 'Account Settings' ? 'bg-[var(--sea-blue-100)] text-white' : 'hover:bg-[var(--gray-300)]' }}">
             <i class="bi bi-gear text-xl"></i>
