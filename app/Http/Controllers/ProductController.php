@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Referral;
 use App\NetworkMarket\CashBonus;
 use App\NetworkMarket\CyclePoint;
+use App\NetworkMarket\ProductPurchaseBonus;
 use App\Utils\Enum\Leg;
 use App\Utils\Enum\PurchaseType;
 use Carbon\Carbon;
@@ -143,10 +144,8 @@ class ProductController extends Controller
 
                 $message = 'Order processing and your account has been credited 30days';
             } else {
-                $referral = Referral::where('distributor_id', $distributor->id)->first();
-                $cashBonus = new CashBonus($referral->upline, $distributor, $amount);
-                $cashBonus->awardCashBonus();
-
+                $productPurchaseBonus = new ProductPurchaseBonus();
+                $productPurchaseBonus->awardSponsorBonus($distributor, $amount);
                 $message = 'Order is processing';
             }
             

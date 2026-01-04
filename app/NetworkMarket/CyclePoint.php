@@ -6,10 +6,12 @@ use App\Models\Distributor;
 use App\Models\Upline;
 use App\Utils\Enum\Leg;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class CyclePoint
 {
     private AwardIncentive $awardIncentive;
+    private CycleBonus $cycleBonus;
     /**
      * Create a new class instance.
      */
@@ -19,6 +21,7 @@ class CyclePoint
         private int $point
     ) {
         $this->awardIncentive = new AwardIncentive();
+        $this->cycleBonus = new CycleBonus();
     }
 
     public function cycle()
@@ -29,8 +32,11 @@ class CyclePoint
         $leg = $this->leg;
 
         while (true) {
+            $this->incrementLegCount($upline, $this->leg);
+
             if ($this->isAccountMaintained($distributor)) {
                 $this->incrementPoint($upline, $leg);
+                $this->cycleBonus->awardBonus($upline);
             }
 
             $this->awardIncentive->awardDistributorIncentive($upline, $distributor);
@@ -66,12 +72,12 @@ class CyclePoint
         $upline->save();
     }
 
-    public function incrementLegCount(Upline $upline, Leg $leg)
+    private function incrementLegCount(Upline $upline, Leg $leg)
     {
         if ($leg === Leg::LEFT) {
-            $upline->left_leg_count += $this->point;
+            $upline->left_leg_count += 1;
         } else {
-            $upline->right_leg_count += $this->point;
+            $upline->right_leg_count += 1;
         }
 
         $upline->save();

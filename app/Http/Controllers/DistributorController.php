@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Dto\DistributorDtoBuilder;
 use App\Http\Requests\Dashboard\DistributorRequest;
 use App\Models\Distributor;
-use App\Models\MembershipPackage;
 use App\Models\Referral;
 use App\Models\Transaction;
 use App\Models\User;
-use App\NetworkMarket\CashBonus;
 use App\NetworkMarket\CyclePoint;
 use App\Utils\Enum\Role;
 use App\Utils\Enum\TransactionType;
@@ -35,45 +33,48 @@ class DistributorController extends Controller
 
     public function create(): View
     {
-        return view('dashboard.distributor.create', [
-            'packages' => MembershipPackage::all()
-        ]);
+        return view('dashboard.distributor.create');
     }
 
     public function store(DistributorRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
+        if ($validated['username'] === $validated['password'] || $validated['name'] === $validated['password']) {
+            return redirect()->back()->with([
+                'message' => "Password can't be the same as your username or name"
+            ]);
+        }
+
         try {
             $builder = (new DistributorDtoBuilder())
                 ->setName($validated['name'])
                 ->setUsername($validated['username'])
+                ->setPassword($validated["password"])
                 ->setUplineId($validated['upline_id'])
                 ->setSelectedLeg($validated['leg'])
-                ->setMembershipPackageId($validated['package'])
                 ->setPhone($validated['phone'])
                 ->setCountry($validated['country']);
 
-            $password = TextGenerator::generate();
-            $membershipPackage = MembershipPackage::getMembershipPackageById((int)$validated['package']);
             $uplineUser = User::getUserById($validated['upline_id']);
             $upline = $uplineUser->getUpline();
             $uplineDistributorDetails = $uplineUser->distributor;
+            $registrationPriceOrPoint = 70;
 
-            if ($uplineDistributorDetails->wallet < $membershipPackage->price) {
+            if ($uplineDistributorDetails->wallet < $registrationPriceOrPoint) {
                 throw new \Exception("Insufficient balance in upline's wallet");
             }
 
-            $distributorUserDetails = User::createViaDistributorData($builder->name, $builder->username, $password);
+            $distributorUserDetails = User::createViaDistributorData($builder);
             $distributor = Distributor::createViaDtoBuilder($builder, $distributorUserDetails->id, $upline->id);
 
-            $uplineDistributorDetails->wallet -= $membershipPackage->price;
+            $uplineDistributorDetails->wallet -= $registrationPriceOrPoint;
             $uplineDistributorDetails->save();
 
             Transaction::create([
                 'distributor_id' => $distributor->id,
                 'transaction_type' => TransactionType::REGISTRATION->name,
-                'amount' => $membershipPackage->price
+                'amount' => $registrationPriceOrPoint
             ]);
 
             Referral::create([
@@ -81,15 +82,11 @@ class DistributorController extends Controller
                 'distributor_id' => $distributor->id
             ]);
 
-            $cashBonus = new CashBonus($upline, $distributor, $membershipPackage->price);
-            $cashBonus->awardCashBonus();
-
-            $cyclePoint = new CyclePoint($upline, $builder->leg, $membershipPackage->point);
-            $cyclePoint->incrementLegCount($upline, $builder->leg);
+            $cyclePoint = new CyclePoint($upline, $builder->leg, $registrationPriceOrPoint);
             $cyclePoint->cycle();
 
             return redirect('/dashboard/distributors')->with([
-                'message' => "Distributor added successfully with password => $password",
+                'message' => "Distributor added successfully",
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with([
