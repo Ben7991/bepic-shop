@@ -14,25 +14,27 @@
                     <th>Date Added</th>
                     <th>Distributor Details</th>
                     <th>Award</th>
+                    <th>From</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($awards as $award)
+                @foreach ($awards as $item)
                     <tr>
-                        <td>{{ $award->created_at }}</td>
-                        <td>{{ $award->distributor->user->name }} ({{ $award->distributor->user->username }})</td>
-                        <td>{{ $award->incentive->award }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->distributor->user->name }} ({{ $item->distributor->user->username }})</td>
+                        <td>{{ $item->award }}</td>
+                        <td>{{ $item->from }}</td>
                         <td>
                             <small
-                                class="inline-block py-1 px-2 rounded-md {{ $award->status === 'APPROVED' ? 'text-green-700 bg-green-100' : 'text-white bg-gray-400' }}">
-                                {{ $award->status }}
+                                class="inline-block py-1 px-2 rounded-md {{ $item->status === 'APPROVED' ? 'text-green-700 bg-green-100' : 'text-white bg-gray-400' }}">
+                                {{ $item->status }}
                             </small>
                         </td>
                         <td>
-                            @if ($award->status === 'PENDING')
-                                <form action="/dashboard/awards/{{ $award->id }}/approve" method="POST">
+                            @if ($item->status === 'PENDING')
+                                <form action="/dashboard/awards/{{ $item->id }}/approve" method="POST">
                                     @csrf
                                     @method('PUT')
 
