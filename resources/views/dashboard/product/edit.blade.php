@@ -38,6 +38,14 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <label for="points" class="mb-1 inline-block">Points</label>
+                <input type="number" name="points" id="points"
+                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]">
+                @error('points')
+                    <small class="text-red-700">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="details" class="mb-1 inline-block">Description</label>
                 <textarea name="details" rows="7"
                     class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]">{{ $product->details }}</textarea>

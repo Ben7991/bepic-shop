@@ -42,7 +42,8 @@ class ProductController extends Controller
                 'name' => $validated['name'],
                 'image' => $imagePath,
                 'price' => $validated['price'],
-                'details' => $validated['details']
+                'details' => $validated['details'],
+                'points' => $validated['points']
             ]);
 
             return redirect('/dashboard/products')->with([
@@ -75,7 +76,8 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z ]*$/',
             'price' => 'required|regex:/^[0-9]*(\.[0-9]{2})*$/',
-            'details' => 'required'
+            'details' => 'required',
+            'points' => 'bail|required|regex:/^[0-9]*$/'
         ]);
 
         try {
@@ -83,6 +85,7 @@ class ProductController extends Controller
             $product->name = $validated['name'];
             $product->price = $validated['price'];
             $product->details = $validated['details'];
+            $product->points = $validated['points'];
             $product->save();
 
             return redirect('/dashboard/products')->with([
@@ -151,7 +154,7 @@ class ProductController extends Controller
             $distributor->save();
 
             $upline = $distributor->upline;
-            $points = $purchaseBuilder->quantity * 70;
+            $points = $purchaseBuilder->quantity * 70 * $product->points;
             $leg = $distributor->leg === Leg::LEFT->name ? Leg::LEFT : Leg::RIGHT;
             $pointCycle = new CyclePoint($upline, $leg, $points);
             $pointCycle->cycle();

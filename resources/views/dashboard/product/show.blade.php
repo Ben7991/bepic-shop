@@ -19,7 +19,8 @@
             <img src="{{ asset('storage/' . $product->image) }}" class="w-full" />
         </div>
         <div class="md:basis-[calc(100%-250px)] xl:basis-[450px]">
-            <h4 class="font-semibold text-2xl mb-5">Price: &#8373; {{ $product->price }}</h4>
+            <h4 class="font-semibold text-2xl mb-3">Price: &#8373; {{ $product->price }}</h4>
+            <p class="mb-3">Points: {{ $product->points }}</p>
             <p class="mb-4">Package details: {{ $product->details }}</p>
 
             <div class="bg-white border border-gray-300 p-4 rounded-md">

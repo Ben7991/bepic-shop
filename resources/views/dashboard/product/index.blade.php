@@ -22,6 +22,7 @@
                         <th>Date Added</th>
                         <th>Name</th>
                         <th>Price</th>
+                        <th>Points</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@
                             <td class="text-left">{{ $product->created_at }}</td>
                             <td>{{ $product->name }}</td>
                             <td>&#8373; {{ number_format($product->price, 2) }}</td>
+                            <td>{{ $product->points }}</td>
                             <td>
                                 <a class="text-blue-700 hover:underline"
                                     href="/dashboard/products/{{ $product->id }}/edit">

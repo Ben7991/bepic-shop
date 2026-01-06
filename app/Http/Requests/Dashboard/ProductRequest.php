@@ -24,10 +24,11 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|regex:/^[a-zA-Z ]*$/',
-            'image' => 'required|image',
-            'price' => 'required|regex:/^[0-9]*(\.[0-9]{2})*$/',
-            'details' => 'required'
+            'name' => 'bail|required|regex:/^[a-zA-Z ]*$/',
+            'image' => 'bail|required|image',
+            'price' => 'bail|required|regex:/^[0-9]*(\.[0-9]{2})*$/',
+            'details' => 'required',
+            'points' => 'bail|required|regex:/^[0-9]*$/'
         ];
     }
 }
