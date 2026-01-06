@@ -55,6 +55,12 @@ class MyTreeController extends Controller
             ]);
         }
 
+        if ($validated['password'] !== $validated['confirm_password']) {
+            return redirect()->back()->with([
+                'message' => "Password do not match each other"
+            ]);
+        }
+
         try {
             $builder = (new DistributorDtoBuilder())
                 ->setName($validated['name'])

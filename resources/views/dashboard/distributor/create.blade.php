@@ -48,6 +48,14 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <label for="confirm_password" class="mb-1 inline-block">Confirm password</label>
+                <input type="password" name="confirm_password" id="confirm_password" value="{{ old('confirm_password') }}"
+                    class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
+                @error('confirm_password')
+                    <small class="text-red-700">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="upline_id" class="mb-1 inline-block">Upline ID</label>
                 <input type="text" name="upline_id" id="upline_id" value="{{ old('upline_id') }}"
                     class="px-4 border rounded-lg gap-2 form-control w-full py-2 outline-none border-[var(--gray-300)] focus:border-[var(--sea-blue-100)]" />
